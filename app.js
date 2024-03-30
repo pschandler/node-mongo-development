@@ -11,15 +11,16 @@ var configData = require("./config/connection");
 var indexRouter = require("./routes/index");
 
 async function getApp() {
-
   // Database
   var connectionInfo = await configData.getConnectionInfo();
-  mongoose.connect(connectionInfo.DATABASE_URL);
+  mongoose.connect(
+    connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
+  );
 
   var app = express();
 
-  var port = normalizePort(process.env.PORT || '3000');
-  app.set('port', port);
+  var port = normalizePort(process.env.PORT || "3000");
+  app.set("port", port);
 
   // view engine setup
   app.set("views", path.join(__dirname, "views"));
@@ -62,7 +63,7 @@ async function getApp() {
  * Normalize a port into a number, string, or false.
  */
 
- function normalizePort(val) {
+function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -78,5 +79,5 @@ async function getApp() {
   return false;
 }
 module.exports = {
-  getApp
+  getApp,
 };
