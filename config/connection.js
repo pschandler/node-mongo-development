@@ -6,8 +6,8 @@ async function putKeyVaultSecretInEnvVar() {
   const secretName = process.env.KEY_VAULT_SECRET_NAME_DATABASE_URL;
   const keyVaultName = process.env.KEY_VAULT_NAME;
 
-  console.log(secretName);
-  console.log(keyVaultName);
+  console.log("putKeyVaultSecretInEnvVar:09 ", secretName);
+  console.log("putKeyVaultSecretInEnvVar:10 ", keyVaultName);
 
   if (!secretName || !keyVaultName)
     throw Error("getSecret: Required params missing");

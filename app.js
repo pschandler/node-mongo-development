@@ -16,11 +16,14 @@ async function getApp() {
   mongoose.connect(
     connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
   );
+  console.log("app.js:19:: ");
 
   var app = express();
 
   var port = normalizePort(process.env.PORT || "3000");
   app.set("port", port);
+
+  console.log("app.js > app.set [port] ", port);
 
   // view engine setup
   app.set("views", path.join(__dirname, "views"));
