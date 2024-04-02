@@ -37,8 +37,8 @@ async function getApp() {
   app.set("views", path.join(__dirname, "views"));
   console.log("views", path.join(__dirname, "views"));
 
-  app.set("view engine", "pug");
-  console.log(" app.set('view engine', 'pug');");
+  app.set("view engine", "html");
+  console.log(" app.set('view engine', 'html');");
 
   app.use(logger("dev"));
   console.log("app.use(logger('dev')");
