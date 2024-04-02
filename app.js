@@ -12,11 +12,19 @@ var indexRouter = require("./routes/index");
 
 async function getApp() {
   // Database
-  var connectionInfo = await configData.getConnectionInfo();
-  mongoose.connect(
-    connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
+  // var connectionInfo = await configData.getConnectionInfo();
+  // mongoose.connect(
+  //   connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
+  // );
+
+  var mongoClient = require("mongodb").MongoClient;
+  mongoClient.connect(
+    "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw%3D%3D@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@",
+    function (err, client) {
+      client.close();
+    }
   );
-  console.log("app.js:19:: ");
+  console.log("app.js: mongoClient :: ", mongoClient);
 
   var app = express();
 
