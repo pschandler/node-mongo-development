@@ -35,15 +35,24 @@ async function getApp() {
 
   // view engine setup
   app.set("views", path.join(__dirname, "views"));
+  console.log("views", path.join(__dirname, "views"));
+
   app.set("view engine", "pug");
+  console.log(" app.set('view engine', 'pug');");
 
   app.use(logger("dev"));
+  console.log("app.use(logger('dev')");
   app.use(express.json());
+  console.log("app.use(express.json());");
   app.use(express.urlencoded({ extended: false }));
+  console.log("app.use(express.urlencoded({ extended: false }));");
   app.use(cookieParser());
+  console.log("app.use(cookieParser());");
   app.use(express.static(path.join(__dirname, "public")));
+  console.log("app.use(express.static(path.join(__dirname, 'public')));");
 
   app.locals.format = format;
+  console.log("app.locals.format: ", format);
 
   app.use("/", indexRouter);
   app.use("/js", express.static(__dirname + "/node_modules/bootstrap/dist/js")); // redirect bootstrap JS
@@ -52,11 +61,14 @@ async function getApp() {
     express.static(__dirname + "/node_modules/bootstrap/dist/css")
   ); // redirect CSS bootstrap
 
+  console.log("after css and js");
+
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
     next(createError(404));
   });
 
+  console.log("no 404");
   // error handler
   app.use(function (err, req, res, next) {
     // set locals, only providing error in development
@@ -65,9 +77,11 @@ async function getApp() {
 
     // render the error page
     res.status(err.status || 500);
+    console.log("err.status: ", res.status);
     res.render("error");
   });
 
+  console.log("returning app");
   return app;
 }
 /**
