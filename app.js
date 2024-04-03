@@ -6,6 +6,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { format } = require("date-fns");
+const { getSecret } = require("./keyvault");
 
 // 1st party dependencies
 var configData = require("./config/connection");
@@ -13,11 +14,13 @@ var indexRouter = require("./routes/index");
 
 async function getApp() {
   // Database
-  // var connectionInfo = await configData.getConnectionInfo();
+  var connectionInfo = await configData.getConnectionInfo();
   // mongoose.connect(
   //   connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
   // );
 
+  console.log("Connection info: ", connectionInfo);
+  console.log("Get secret: ", getSecret("mongodbconnection-live"));
   mongoose
     .connect(
       "mongodb://pcs-node-mongo-server.mongo.cosmos.azure.com:10255/pcs-node-mongo-db?ssl=true&replicaSet=globaldb",
@@ -34,15 +37,6 @@ async function getApp() {
     )
     .then(() => console.log("Connection to CosmosDB successful"))
     .catch((err) => console.error(err));
-  // var mongoClient = require("mongodb").MongoClient;
-  // mongoClient.connect(
-  //   "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw%3D%3D@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@",
-  //   function (err, client) {
-  //     console.log("Error connecting to Mongo: ", err);
-  //     client.close();
-  //   }
-  // );
-  // console.log("app.js: mongoClient :: ", mongoClient);
 
   var app = express();
 
@@ -59,18 +53,17 @@ async function getApp() {
   console.log(" app.set('view engine', 'pug');");
 
   app.use(logger("dev"));
-  console.log("app.use(logger('dev')");
+  // console.log("app.use(logger('dev')");
   app.use(express.json());
-  console.log("app.use(express.json());");
+  // console.log("app.use(express.json());");
   app.use(express.urlencoded({ extended: false }));
   console.log("app.use(express.urlencoded({ extended: false }));");
   app.use(cookieParser());
-  console.log("app.use(cookieParser());");
+  // console.log("app.use(cookieParser());");
   app.use(express.static(path.join(__dirname, "public")));
-  console.log("app.use(express.static(path.join(__dirname, 'public')));");
+  // console.log("app.use(express.static(path.join(__dirname, 'public')));");
 
   app.locals.format = format;
-  console.log("app.locals.format: ", format);
 
   app.use("/", indexRouter);
   app.use("/js", express.static(__dirname + "/node_modules/bootstrap/dist/js")); // redirect bootstrap JS
@@ -85,8 +78,8 @@ async function getApp() {
   app.use(function (req, res, next) {
     next(createError(404));
   });
-
   console.log("no 404");
+
   // error handler
   app.use(function (err, req, res, next) {
     // set locals, only providing error in development
@@ -105,7 +98,6 @@ async function getApp() {
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
