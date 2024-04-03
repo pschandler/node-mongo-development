@@ -15,6 +15,34 @@ async function getApp() {
 
   var app = express();
 
+  const host = await getSecret("host", "punchcodestudioskeyvault");
+  const dbPort = await getSecret("port", "punchcodestudioskeyvault");
+  const dbname = await getSecret("dbname", "punchcodestudioskeyvault");
+  const uname = await getSecret("uname", "punchcodestudioskeyvault");
+  const password = await getSecret("password", "punchcodestudioskeyvault");
+
+  mongoose
+    .connect(
+      "mongodb://" +
+        host +
+        ":" +
+        dbPort +
+        "/" +
+        dbname +
+        "?ssl=true&replicaSet=globaldb",
+      {
+        auth: {
+          username: uname,
+          password: password,
+        },
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        retryWrites: false,
+      }
+    )
+    .then(() => console.log("Connection to CosmosDB successful"))
+    .catch((err) => console.error(err));
+
   var port = normalizePort(process.env.PORT || "3000");
   app.set("port", port);
 
