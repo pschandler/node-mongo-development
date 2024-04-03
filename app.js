@@ -15,7 +15,10 @@ async function getApp() {
   // Database
   var connectionInfo = await configData.getConnectionInfo();
   console.log("Connection info: ", connectionInfo);
-  console.log("Get secret: ", getSecret("mongodbconnection-live"));
+  console.log(
+    "Get secret: ",
+    getSecret("mongodbconnection-live", "punchcodestudioskeyvault")
+  );
   mongoose
     .connect(
       "mongodb://pcs-node-mongo-server.mongo.cosmos.azure.com:10255/pcs-node-mongo-db?ssl=true&replicaSet=globaldb",
