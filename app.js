@@ -69,11 +69,11 @@ async function getApp() {
     res.render("error");
   });
 
-  const host = await getSecret("host", "punchcodestudioskeyvault");
-  const dbPort = await getSecret("port", "punchcodestudioskeyvault");
-  const dbname = await getSecret("dbname", "punchcodestudioskeyvault");
-  const uname = await getSecret("uname", "punchcodestudioskeyvault");
-  const password = await getSecret("password", "punchcodestudioskeyvault");
+  // const host = await getSecret("host", "punchcodestudioskeyvault");
+  // const dbPort = await getSecret("port", "punchcodestudioskeyvault");
+  // const dbname = await getSecret("dbname", "punchcodestudioskeyvault");
+  // const uname = await getSecret("uname", "punchcodestudioskeyvault");
+  // const password = await getSecret("password", "punchcodestudioskeyvault");
 
   // mongoose
   //   .connect(
