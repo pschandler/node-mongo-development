@@ -42,7 +42,7 @@ async function getApp() {
   //     client.close();
   //   }
   // );
-  console.log("app.js: mongoClient :: ", mongoClient);
+  // console.log("app.js: mongoClient :: ", mongoClient);
 
   var app = express();
 
