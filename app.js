@@ -21,6 +21,7 @@ async function getApp() {
   mongoClient.connect(
     "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw%3D%3D@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@",
     function (err, client) {
+      console.log("Error connecting to Mongo: ", err);
       client.close();
     }
   );
@@ -37,8 +38,8 @@ async function getApp() {
   app.set("views", path.join(__dirname, "views"));
   console.log("views", path.join(__dirname, "views"));
 
-  // app.set("view engine", "html");
-  // console.log(" app.set('view engine', 'html');");
+  app.set("view engine", "pug");
+  console.log(" app.set('view engine', 'pug');");
 
   app.use(logger("dev"));
   console.log("app.use(logger('dev')");
