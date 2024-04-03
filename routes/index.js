@@ -6,7 +6,7 @@ var router = express.Router();
 /* GET home page. */
 router.get("/", function (req, res, next) {
   console.log("index: ");
-  res.sendfile("./public/index.html");
+  res.render("index");
   // Task.find()
   //   .then((tasks) => {
   //     const currentTasks = tasks.filter(task => !task.completed);
