@@ -96,11 +96,11 @@ async function getApp() {
   //   )
   //   .then(() => console.log("Connection to CosmosDB successful"))
   //   .catch((err) => console.error(err));
-  // var url = `mongodb://${uname}:${password}@${host}:${dbPort}/${dbname}?ssl=true`;
+  var url = `mongodb://${uname}:${password}@${host}:${dbPort}/${dbname}?ssl=true`;
   // var url =
   //   "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw==@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/pcs-node-mongo-db?ssl=true";
-  var url =
-    "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw==@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@";
+  // var url =
+  //   "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw==@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@";
   mongoose
     .connect(url)
     .then(() => {
