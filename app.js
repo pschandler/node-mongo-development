@@ -37,8 +37,8 @@ async function getApp() {
   app.set("views", path.join(__dirname, "views"));
   console.log("views", path.join(__dirname, "views"));
 
-  app.set("view engine", "html");
-  console.log(" app.set('view engine', 'html');");
+  // app.set("view engine", "html");
+  // console.log(" app.set('view engine', 'html');");
 
   app.use(logger("dev"));
   console.log("app.use(logger('dev')");
@@ -77,7 +77,7 @@ async function getApp() {
 
     // render the error page
     res.status(err.status || 500);
-    console.log("err.status: ", res.status);
+    console.log("err.message: ", err.message);
     res.render("error");
   });
 
