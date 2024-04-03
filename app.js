@@ -1,4 +1,3 @@
-var env = require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var mongoose = require("mongoose");
@@ -6,7 +5,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { format } = require("date-fns");
-const { getSecret } = require("./keyvault");
+const { getSecret } = require("./config/keyvault");
 
 // 1st party dependencies
 var configData = require("./config/connection");
@@ -15,10 +14,6 @@ var indexRouter = require("./routes/index");
 async function getApp() {
   // Database
   var connectionInfo = await configData.getConnectionInfo();
-  // mongoose.connect(
-  //   connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
-  // );
-
   console.log("Connection info: ", connectionInfo);
   console.log("Get secret: ", getSecret("mongodbconnection-live"));
   mongoose
