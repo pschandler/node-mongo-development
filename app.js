@@ -20,17 +20,12 @@ async function getApp() {
 
   mongoose
     .connect(
-      "mongodb://" +
-        process.env.COSMOSDB_HOST +
-        ":" +
-        process.env.COSMOSDB_PORT +
-        "/" +
-        process.env.COSMOSDB_DBNAME +
-        "?ssl=true&replicaSet=globaldb",
+      "mongodb://pcs-node-mongo-server.mongo.cosmos.azure.com:10255/pcs-node-mongo-db?ssl=true&replicaSet=globaldb",
       {
         auth: {
-          username: process.env.COSMOSDB_USER,
-          password: process.env.COSMOSDB_PASSWORD,
+          username: "pcs-node-mongo-server",
+          password:
+            "Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw==",
         },
         useNewUrlParser: true,
         useUnifiedTopology: true,
