@@ -22,17 +22,17 @@ async function getApp() {
 
   // view engine setup
   app.set("views", path.join(__dirname, "views"));
-  console.log("views", path.join(__dirname, "views"));
+  // console.log("views", path.join(__dirname, "views"));
 
   app.set("view engine", "pug");
-  console.log(" app.set('view engine', 'pug');");
+  // console.log(" app.set('view engine', 'pug');");
 
   app.use(logger("dev"));
   // console.log("app.use(logger('dev')");
   app.use(express.json());
   // console.log("app.use(express.json());");
   app.use(express.urlencoded({ extended: false }));
-  console.log("app.use(express.urlencoded({ extended: false }));");
+  // console.log("app.use(express.urlencoded({ extended: false }));");
   app.use(cookieParser());
   // console.log("app.use(cookieParser());");
   app.use(express.static(path.join(__dirname, "public")));
