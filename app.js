@@ -1,3 +1,4 @@
+var env = require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var mongoose = require("mongoose");
@@ -17,14 +18,35 @@ async function getApp() {
   //   connectionInfo.DATABASE_URL + "/" + connectionInfo.DATABASE_NAME
   // );
 
-  var mongoClient = require("mongodb").MongoClient;
-  mongoClient.connect(
-    "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw%3D%3D@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@",
-    function (err, client) {
-      console.log("Error connecting to Mongo: ", err);
-      client.close();
-    }
-  );
+  mongoose
+    .connect(
+      "mongodb://" +
+        process.env.COSMOSDB_HOST +
+        ":" +
+        process.env.COSMOSDB_PORT +
+        "/" +
+        process.env.COSMOSDB_DBNAME +
+        "?ssl=true&replicaSet=globaldb",
+      {
+        auth: {
+          username: process.env.COSMOSDB_USER,
+          password: process.env.COSMOSDB_PASSWORD,
+        },
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        retryWrites: false,
+      }
+    )
+    .then(() => console.log("Connection to CosmosDB successful"))
+    .catch((err) => console.error(err));
+  // var mongoClient = require("mongodb").MongoClient;
+  // mongoClient.connect(
+  //   "mongodb://pcs-node-mongo-server:Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw%3D%3D@pcs-node-mongo-server.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&maxIdleTimeMS=120000&appName=@pcs-node-mongo-server@",
+  //   function (err, client) {
+  //     console.log("Error connecting to Mongo: ", err);
+  //     client.close();
+  //   }
+  // );
   console.log("app.js: mongoClient :: ", mongoClient);
 
   var app = express();
