@@ -75,27 +75,35 @@ async function getApp() {
   const uname = await getSecret("uname", "punchcodestudioskeyvault");
   const password = await getSecret("password", "punchcodestudioskeyvault");
 
+  // mongoose
+  //   .connect(
+  //     "mongodb://" +
+  //       host +
+  //       ":" +
+  //       dbPort +
+  //       "/" +
+  //       dbname +
+  //       "?ssl=true&replicaSet=globaldb",
+  //     {
+  //       auth: {
+  //         username: uname,
+  //         password: password,
+  //       },
+  //       useNewUrlParser: true,
+  //       useUnifiedTopology: true,
+  //       retryWrites: false,
+  //     }
+  //   )
+  //   .then(() => console.log("Connection to CosmosDB successful"))
+  //   .catch((err) => console.error(err));
+  var url = `mongodb://${uname}:${password}@${host}:${port}/${dbname}?ssl=true`;
   mongoose
-    .connect(
-      "mongodb://" +
-        host +
-        ":" +
-        dbPort +
-        "/" +
-        dbname +
-        "?ssl=true&replicaSet=globaldb",
-      {
-        auth: {
-          username: uname,
-          password: password,
-        },
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        retryWrites: false,
-      }
-    )
-    .then(() => console.log("Connection to CosmosDB successful"))
+    .connect(url)
+    .then(() => {
+      console.log("Connection successful");
+    })
     .catch((err) => console.error(err));
+
   console.log("returning app");
   return app;
 }
