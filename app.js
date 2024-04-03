@@ -11,7 +11,7 @@ var indexRouter = require("./routes/index");
 
 async function getApp() {
   // Database
-  configData.connect();
+  // configData.connect();
 
   var app = express();
 
