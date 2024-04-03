@@ -35,6 +35,36 @@ async function getConnectionInfo() {
   };
 }
 
+async function connect() {
+  const host = await getSecret("host", "punchcodestudioskeyvault");
+  const port = await getSecret("port", "punchcodestudioskeyvault");
+  const dbname = await getSecret("dbname", "punchcodestudioskeyvault");
+  const uname = await getSecret("uname", "punchcodestudioskeyvault");
+  const password = await getSecret("password", "punchcodestudioskeyvault");
+
+  mongoose
+    .connect(
+      "mongodb://" +
+        host +
+        ":" +
+        port +
+        "/" +
+        dbname +
+        "?ssl=true&replicaSet=globaldb",
+      {
+        auth: {
+          username: uname,
+          password: password,
+        },
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        retryWrites: false,
+      }
+    )
+    .then(() => console.log("Connection to CosmosDB successful"))
+    .catch((err) => console.error(err));
+}
 module.exports = {
   getConnectionInfo,
+  connect,
 };

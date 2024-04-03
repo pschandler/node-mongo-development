@@ -13,28 +13,7 @@ var indexRouter = require("./routes/index");
 
 async function getApp() {
   // Database
-  var connectionInfo = await configData.getConnectionInfo();
-  console.log("Connection info: ", connectionInfo);
-  console.log(
-    "Get secret: ",
-    getSecret("mongodbconnection-live", "punchcodestudioskeyvault")
-  );
-  mongoose
-    .connect(
-      "mongodb://pcs-node-mongo-server.mongo.cosmos.azure.com:10255/pcs-node-mongo-db?ssl=true&replicaSet=globaldb",
-      {
-        auth: {
-          username: "pcs-node-mongo-server",
-          password:
-            "Z7wh75U5fQgEzfeCIWDBuW4jKyK3FMvJsQJ37ne1hQoShRtYEMXSTpNOUgIsTPOcxZ1OiAdXlwu0ACDbtnC3hw==",
-        },
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        retryWrites: false,
-      }
-    )
-    .then(() => console.log("Connection to CosmosDB successful"))
-    .catch((err) => console.error(err));
+  configData.connect();
 
   var app = express();
 
