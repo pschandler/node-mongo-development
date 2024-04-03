@@ -4,6 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { format } = require("date-fns");
+const mongoose = require("mongoose");
+const { getSecret } = require("./keyvault");
 
 // 1st party dependencies
 var configData = require("./config/connection");
@@ -14,34 +16,6 @@ async function getApp() {
   // configData.connect();
 
   var app = express();
-
-  const host = await getSecret("host", "punchcodestudioskeyvault");
-  const dbPort = await getSecret("port", "punchcodestudioskeyvault");
-  const dbname = await getSecret("dbname", "punchcodestudioskeyvault");
-  const uname = await getSecret("uname", "punchcodestudioskeyvault");
-  const password = await getSecret("password", "punchcodestudioskeyvault");
-
-  mongoose
-    .connect(
-      "mongodb://" +
-        host +
-        ":" +
-        dbPort +
-        "/" +
-        dbname +
-        "?ssl=true&replicaSet=globaldb",
-      {
-        auth: {
-          username: uname,
-          password: password,
-        },
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        retryWrites: false,
-      }
-    )
-    .then(() => console.log("Connection to CosmosDB successful"))
-    .catch((err) => console.error(err));
 
   var port = normalizePort(process.env.PORT || "3000");
   app.set("port", port);
@@ -95,6 +69,33 @@ async function getApp() {
     res.render("error");
   });
 
+  const host = await getSecret("host", "punchcodestudioskeyvault");
+  const dbPort = await getSecret("port", "punchcodestudioskeyvault");
+  const dbname = await getSecret("dbname", "punchcodestudioskeyvault");
+  const uname = await getSecret("uname", "punchcodestudioskeyvault");
+  const password = await getSecret("password", "punchcodestudioskeyvault");
+
+  mongoose
+    .connect(
+      "mongodb://" +
+        host +
+        ":" +
+        dbPort +
+        "/" +
+        dbname +
+        "?ssl=true&replicaSet=globaldb",
+      {
+        auth: {
+          username: uname,
+          password: password,
+        },
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        retryWrites: false,
+      }
+    )
+    .then(() => console.log("Connection to CosmosDB successful"))
+    .catch((err) => console.error(err));
   console.log("returning app");
   return app;
 }
