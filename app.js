@@ -1,11 +1,9 @@
 var createError = require("http-errors");
 var express = require("express");
-var mongoose = require("mongoose");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { format } = require("date-fns");
-const { getSecret } = require("./config/keyvault");
 
 // 1st party dependencies
 var configData = require("./config/connection");
