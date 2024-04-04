@@ -28,7 +28,7 @@ router.get("/", function (req, res, next) {
 router.post("/addTask", function (req, res, next) {
   console.log("AddTask: ");
   const taskName = req.body.taskName;
-  const createDate = "2024-03-30T14:51:25.815+00:00";
+  const createDate = new Date.toISOString();
 
   var task = new Task({
     taskName: taskName,
@@ -51,7 +51,7 @@ router.post("/addTask", function (req, res, next) {
 router.post("/completeTask", function (req, res, next) {
   console.log("I am in the PUT method");
   const taskId = req.body._id;
-  const completedDate = "2024-03-30T14:51:25.815+00:00";
+  const completedDate = new Date.toISOString();
 
   Task.findByIdAndUpdate(taskId, {
     completed: true,
@@ -69,7 +69,7 @@ router.post("/completeTask", function (req, res, next) {
 
 router.post("/deleteTask", function (req, res, next) {
   const taskId = req.body._id;
-  const completedDate = "2024-03-30T14:51:25.815+00:00"; //Date.now();
+  const completedDate = new Date.toISOString();
   Task.findByIdAndDelete(taskId)
     .then(() => {
       console.log(`Deleted task $(taskId)`);
