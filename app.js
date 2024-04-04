@@ -75,7 +75,7 @@ async function getApp() {
   const uname = await getSecret("uname", "punchcodestudioskeyvault");
   const password = await getSecret("password", "punchcodestudioskeyvault");
 
-  var url = `mongodb://${uname}:${password}@${host}:${dbPort}/${dbname}?ssl=true`;
+  var url = `mongodb://${uname}:${password}@${host}:${dbPort}/${dbname}?ssl=true&retrywrites=false`;
 
   mongoose
     .connect(url)
