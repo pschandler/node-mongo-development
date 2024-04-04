@@ -38,8 +38,8 @@ block content
     div(class='col-sm-8 fw-bold') Task
     div(class='col-sm-2 fw-bold') Created
     div(class='col-sm-2 fw-bold') Completed
-  //- each task in completedTasks
-  //-   div(class='row mb-3')
-  //-     div(class='col-sm-8') #{task.taskName}
-  //-     div(class='col-sm-2') #{format(task.createDate, "yyyy-MM-dd")}
-  //-     div(class='col-sm-2') #{format(task.completedDate, "yyyy-MM-dd")}
+  each task in completedTasks
+    div(class='row mb-3')
+      div(class='col-sm-8') #{task.taskName}
+      div(class='col-sm-2') #{format(task.createDate, "yyyy-MM-dd")}
+      div(class='col-sm-2') #{format(task.completedDate, "yyyy-MM-dd")}
