@@ -23,7 +23,7 @@ router.get("/", function (req, res, next) {
 
 router.post("/addTask", function (req, res, next) {
   const taskName = req.body.taskName;
-  const createDate = Date.now();
+  const createDate = Date.now().toString();
 
   var task = new Task({
     taskName: taskName,
@@ -46,9 +46,12 @@ router.post("/addTask", function (req, res, next) {
 router.post("/completeTask", function (req, res, next) {
   console.log("I am in the PUT method");
   const taskId = req.body._id;
-  const completedDate = Date.now();
+  const completedDate = Date.now().toString();
 
-  Task.findByIdAndUpdate(taskId, { completed: true, completedDate: Date.now() })
+  Task.findByIdAndUpdate(taskId, {
+    completed: true,
+    completedDate: Date.now().toString(),
+  })
     .then(() => {
       console.log(`Completed task ${taskId}`);
       res.redirect("/");
